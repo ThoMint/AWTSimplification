@@ -12,6 +12,8 @@ public interface Engine extends KeyListener, MouseMotionListener, MouseListener 
 	// For details about the capability's of Graphics2D see
 	// https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics2D.html
 	public void draw(Graphics2D g);
+	
+	public void write(Graphics2D g);
 
 	// function in which the user can lock the frame rate and redraw every frame
 	// Handled by an independent Thread

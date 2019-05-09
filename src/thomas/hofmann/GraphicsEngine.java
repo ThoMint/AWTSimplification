@@ -16,6 +16,7 @@ public class GraphicsEngine extends Thread {
 	// Interface
 	private Engine e;
 	private JPanel p;
+	private Graphics2D g2;
 
 	// Constructor
 	public GraphicsEngine(Window w, Engine e) {
@@ -30,7 +31,8 @@ public class GraphicsEngine extends Thread {
 				g.fillRect(0, 0, this.getWidth(), this.getHeight());
 				g.setColor(Color.BLACK);
 				// Create another graphics object and flip the coordinate System
-				Graphics2D g2 = (Graphics2D) g.create();
+				g2 = (Graphics2D) g.create();
+				e.write(g2);
 				AffineTransform tform = AffineTransform.getTranslateInstance(0, this.getHeight());
 				tform.scale(1, -1);
 				g2.setTransform(tform);
