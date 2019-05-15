@@ -3,15 +3,11 @@ package thomas.hofmann;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class Window extends JFrame {
-	public int width;
-	public int height;
-	public int x;
-	public int y;
+	// Rectangle that represents Bounds
 	public Rectangle bounds;
 	// Resizeable true by default
 	public boolean resizeable = true;
@@ -19,8 +15,9 @@ public class Window extends JFrame {
 	// Constructor where you can set resizeable to false
 	public Window(String title, int width, int height, boolean resizeable) {
 		super(title);
-		this.width = width;
-		this.height = height;
+		bounds = new Rectangle();
+		bounds.width = width;
+		bounds.height = height;
 		this.resizeable = resizeable;
 		init();
 	}
@@ -28,19 +25,20 @@ public class Window extends JFrame {
 	// Constructor without setting resizeable so it is true
 	public Window(String title, int width, int height) {
 		super(title);
-		this.width = width;
-		this.height = height;
+		bounds = new Rectangle();
+		bounds.width = width;
+		bounds.height = height;
 		init();
 	}
 
 	// To center the window in the middle of the default screen
 	void getPosition() {
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		int width = gd.getDisplayMode().getWidth();
-		int height = gd.getDisplayMode().getHeight();
+		int dWidth = gd.getDisplayMode().getWidth();
+		int dHeight = gd.getDisplayMode().getHeight();
 
-		this.x = width / 2 - this.width / 2;
-		this.y = height / 2 - this.height / 2;
+		bounds.x = dWidth / 2 - bounds.width / 2;
+		bounds.y = dHeight / 2 - bounds.height / 2;
 	}
 
 	// The part of the constructor that stays the same for both Variants
@@ -48,19 +46,14 @@ public class Window extends JFrame {
 		// Set the x,y coordinates to center the window
 		getPosition();
 		// Sets the position and size of the frame
-		super.setBounds(x, y, width, height);
-		this.bounds = super.getBounds();
-		super.setVisible(true);
+		super.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setResizable(resizeable);
+		super.setVisible(true);
 	}
 
 	// Update variables when called
 	void update() {
-		this.bounds = super.getBounds();
-		this.width = this.bounds.width;
-		this.height = this.bounds.height;
-		this.x = this.bounds.x;
-		this.y = this.bounds.y;
+		bounds = super.getBounds();
 	}
 }
